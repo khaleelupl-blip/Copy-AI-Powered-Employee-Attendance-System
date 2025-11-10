@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useApp } from '../../contexts/AppContext';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import * as api from '../../services/api';
 
 interface MainLayoutProps {
@@ -27,6 +28,18 @@ const getInitials = (name: string) => {
     return name.substring(0, 2).toUpperCase();
 };
 
+const ThemeSwitcher: React.FC = () => {
+    const { theme, setTheme } = useTheme();
+    const { t } = useLanguage();
+    
+    return (
+        <div className="flex items-center bg-gray-100 dark:bg-slate-800 rounded-full p-1">
+            <button onClick={() => setTheme('light')} className={`p-1.5 rounded-full ${theme === 'light' ? 'bg-white shadow' : ''}`} aria-label={t('light')}><i className="fas fa-sun text-sky-500"></i></button>
+            <button onClick={() => setTheme('dark')} className={`p-1.5 rounded-full ${theme === 'dark' ? 'bg-slate-700 shadow' : ''}`} aria-label={t('dark')}><i className="fas fa-moon text-slate-400"></i></button>
+            <button onClick={() => setTheme('system')} className={`p-1.5 rounded-full ${theme === 'system' ? 'bg-white dark:bg-slate-700 shadow' : ''}`} aria-label={t('system')}><i className="fas fa-desktop text-gray-500"></i></button>
+        </div>
+    )
+}
 
 const LanguageSwitcher: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -52,18 +65,18 @@ const LanguageSwitcher: React.FC = () => {
         <div className="relative" ref={menuRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-full text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
+                className="p-2 rounded-full text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 focus:outline-none transition-colors"
             >
                 <i className="fas fa-globe"></i>
             </button>
             {isOpen && (
-                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 z-20">
+                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-slate-800 ring-1 ring-black ring-opacity-5 z-20">
                     <div className="py-1">
-                        <a href="#" onClick={() => selectLanguage('en')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">English</a>
-                        <a href="#" onClick={() => selectLanguage('es')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Español</a>
-                        <a href="#" onClick={() => selectLanguage('fr')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">Français</a>
-                        <a href="#" onClick={() => selectLanguage('zh')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">中文 (Chinese)</a>
-                        <a href="#" onClick={() => selectLanguage('ur')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600">اردو (Urdu)</a>
+                        <a href="#" onClick={() => selectLanguage('en')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">English</a>
+                        <a href="#" onClick={() => selectLanguage('es')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">Español</a>
+                        <a href="#" onClick={() => selectLanguage('fr')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">Français</a>
+                        <a href="#" onClick={() => selectLanguage('zh')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">中文 (Chinese)</a>
+                        <a href="#" onClick={() => selectLanguage('ur')} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">اردو (Urdu)</a>
                     </div>
                 </div>
             )}
@@ -75,14 +88,14 @@ const SyncIndicator: React.FC<{ status: 'syncing' | 'synced' | 'error', time: st
     const { t } = useLanguage();
 
     const statusMap = {
-        syncing: { icon: 'fa-spin fa-sync-alt', color: 'text-blue-500', text: t('syncing') },
+        syncing: { icon: 'fa-spin fa-sync-alt', color: 'text-sky-500', text: t('syncing') },
         synced: { icon: 'fa-check-circle', color: 'text-green-500', text: t('synced_at', { time }) },
         error: { icon: 'fa-exclamation-triangle', color: 'text-red-500', text: t('sync_error') }
     };
     const { icon, color, text } = statusMap[status];
 
     return (
-        <div className="fixed bottom-4 right-4 bg-white dark:bg-gray-800 shadow-lg rounded-full py-2 px-4 flex items-center text-sm z-50 border dark:border-gray-700">
+        <div className="fixed bottom-4 right-4 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm shadow-lg rounded-full py-2 px-4 flex items-center text-sm z-50 border dark:border-slate-700">
             <i className={`fas ${icon} ${color} mr-2`}></i>
             <span className="text-gray-600 dark:text-gray-300">{text}</span>
         </div>
@@ -115,28 +128,34 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, syncStatus, lastSyncT
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-40 border-b dark:border-gray-700">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 text-gray-800 dark:text-gray-200 font-sans">
+      <header className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm sticky top-0 z-40 border-b border-gray-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               {appLogo ? (
                  <img src={appLogo} alt="App Logo" className="h-8 w-auto mr-3" />
               ) : (
-                <i className="fas fa-building text-2xl text-indigo-600 dark:text-indigo-400"></i>
+                <i className="fas fa-building text-2xl text-sky-600 dark:text-sky-400"></i>
               )}
-              <span className="ml-3 font-bold text-xl text-gray-800 dark:text-white">{appName}</span>
+              <span className="ml-3 font-semibold text-xl text-gray-800 dark:text-white">{appName}</span>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="text-right">
+            <div className="flex items-center space-x-2 md:space-x-4">
+              <ThemeSwitcher />
+              <LanguageSwitcher />
+
+              <div className="w-px h-6 bg-gray-200 dark:bg-slate-700"></div>
+
+              <div className="text-right hidden sm:block">
                 <p className="font-semibold text-gray-800 dark:text-white">{user?.fullName}</p>
                 <p className="text-sm text-gray-500 dark:text-gray-400 capitalize">{t(`role_${user?.role}`)}</p>
               </div>
+
               <div className="relative group cursor-pointer" onClick={handleProfileClick}>
                 {user?.profilePhoto ? (
-                    <img className="h-10 w-10 rounded-full object-cover" src={user.profilePhoto} alt="User" />
+                    <img className="h-10 w-10 rounded-full object-cover ring-2 ring-offset-2 ring-offset-gray-100 dark:ring-offset-slate-900 ring-sky-500" src={user.profilePhoto} alt="User" />
                 ) : (
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-500">
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-500 ring-2 ring-offset-2 ring-offset-gray-100 dark:ring-offset-slate-900 ring-sky-500">
                         <span className="font-medium leading-none text-white">{getInitials(user?.fullName || '')}</span>
                     </span>
                 )}
@@ -146,11 +165,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, syncStatus, lastSyncT
               </div>
               <input type="file" ref={profilePicInputRef} onChange={handleProfilePictureChange} className="hidden" accept="image/*" />
               
-              <LanguageSwitcher />
-
               <button
                 onClick={logout}
-                className="p-2 rounded-full text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="p-2 rounded-full text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 focus:outline-none"
                 aria-label={t('logout')}
               >
                 <i className="fas fa-sign-out-alt"></i>

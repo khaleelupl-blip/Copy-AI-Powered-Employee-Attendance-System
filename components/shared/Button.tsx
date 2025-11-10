@@ -18,11 +18,11 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseClasses =
-    'inline-flex items-center justify-center border border-transparent font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed';
+    'inline-flex items-center justify-center border border-transparent font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-slate-900 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variantClasses = {
-    primary: 'text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500',
-    secondary: 'text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:ring-indigo-500',
+    primary: 'text-white bg-sky-600 hover:bg-sky-700 focus:ring-sky-500',
+    secondary: 'text-sky-700 bg-sky-100 hover:bg-sky-200 focus:ring-sky-500 dark:text-sky-200 dark:bg-sky-500/20 dark:hover:bg-sky-500/30',
     danger: 'text-white bg-red-600 hover:bg-red-700 focus:ring-red-500',
     success: 'text-white bg-green-600 hover:bg-green-700 focus:ring-green-500',
   };
@@ -41,7 +41,7 @@ const Button: React.FC<ButtonProps> = ({
     >
       {isLoading ? (
         <svg
-          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+          className="animate-spin -ml-1 mr-3 h-5 w-5"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

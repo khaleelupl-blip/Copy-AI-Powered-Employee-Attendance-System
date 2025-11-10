@@ -20,7 +20,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 const MapLink: React.FC<{ lat?: number, lng?: number }> = ({ lat, lng }) => {
     if (lat === undefined || lng === undefined) return null;
     return (
-        <a href={`https://www.google.com/maps?q=${lat},${lng}`} target="_blank" rel="noopener noreferrer" className="ml-2 text-indigo-500 hover:text-indigo-700">
+        <a href={`https://www.google.com/maps?q=${lat},${lng}`} target="_blank" rel="noopener noreferrer" className="ml-2 text-sky-500 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300">
             <i className="fas fa-map-marked-alt"></i>
         </a>
     );
@@ -35,17 +35,17 @@ const AttendanceLog: React.FC<{ attendanceRecords: AttendanceRecord[]; employees
     return (
         <Card title={t('full_attendance_log')}>
             <div className="overflow-x-auto max-h-[70vh]">
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead className="bg-gray-50 dark:bg-gray-700 sticky top-0">
+                <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                    <thead className="bg-gray-50 dark:bg-slate-700/50 sticky top-0">
                         <tr>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('employee')}</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('date')}</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('check_in')}</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('check_out')}</th>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{t('location')}</th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('employee')}</th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('date')}</th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('check_in')}</th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('check_out')}</th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('location')}</th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <tbody className="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
                         {attendanceRecords.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime() || (b.checkInTime || '').localeCompare(a.checkInTime || '')).map(record => (
                             <tr key={`${record.username}-${record.date}`}>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
@@ -263,11 +263,11 @@ const AdminDashboard: React.FC = () => {
   ];
   
   const employeeListActions = (
-    <div className="flex items-center space-x-2 md:space-x-4">
+    <div className="flex flex-col sm:flex-row items-center gap-2">
         <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value as any)}
-            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="block w-full sm:w-auto pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm rounded-md dark:bg-slate-700 dark:border-slate-600 dark:text-white"
         >
             <option value="all">{t('all_statuses')}</option>
             <option value="active">{t('active')}</option>
@@ -276,14 +276,14 @@ const AdminDashboard: React.FC = () => {
         <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value as any)}
-            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            className="block w-full sm:w-auto pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm rounded-md dark:bg-slate-700 dark:border-slate-600 dark:text-white"
         >
             <option value="all">{t('all_roles')}</option>
             <option value="employee">{t('role_employee')}</option>
             <option value="manager">{t('role_manager')}</option>
             <option value="admin">{t('role_admin')}</option>
         </select>
-        <Button onClick={handleOpenAddEmployee} icon={<i className="fas fa-plus mr-2"/>} className="whitespace-nowrap">{t('add_employee')}</Button>
+        <Button onClick={handleOpenAddEmployee} icon={<i className="fas fa-plus mr-2"/>} className="whitespace-nowrap w-full sm:w-auto">{t('add_employee')}</Button>
     </div>
   );
 
@@ -304,7 +304,7 @@ const AdminDashboard: React.FC = () => {
                 <Card title={t('ai_summary')} actions={<Button onClick={handleGenerateSummary} isLoading={isSummaryLoading} icon={<i className="fas fa-magic mr-2"></i>}>{t('generate')}</Button>}>
                     {isSummaryLoading && <Spinner />}
                     {aiSummary && <div className="prose dark:prose-invert max-w-none" dangerouslySetInnerHTML={{ __html: aiSummary.replace(/\n/g, '<br />') }} />}
-                    {!aiSummary && !isSummaryLoading && <p className="text-gray-500">{t('generate_summary_prompt')}</p>}
+                    {!aiSummary && !isSummaryLoading && <p className="text-gray-500 dark:text-gray-400">{t('generate_summary_prompt')}</p>}
                 </Card>
             );
         case 'settings':
@@ -320,19 +320,20 @@ const AdminDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <StatCard title={t('total_employees')} value={stats?.totalEmployees || 0} icon={<i className="fas fa-users"></i>} color="indigo" />
-            <StatCard title={t('present_today')} value={stats?.presentToday || 0} icon={<i className="fas fa-user-check"></i>} color="green" />
-            <StatCard title={t('absent_today')} value={stats?.absentToday || 0} icon={<i className="fas fa-user-times"></i>} color="red" />
-            <StatCard title={t('on_leave_today')} value={stats?.onLeaveToday || 0} icon={<i className="fas fa-bed"></i>} color="yellow" />
+            <StatCard title={t('total_employees')} value={stats?.totalEmployees || 0} icon={<i className="fas fa-users"></i>} color="sky" />
+            <StatCard title={t('present_today')} value={stats?.presentToday || 0} icon={<i className="fas fa-user-check"></i>} color="teal" />
+            <StatCard title={t('absent_today')} value={stats?.absentToday || 0} icon={<i className="fas fa-user-times"></i>} color="rose" />
+            <StatCard title={t('on_leave_today')} value={stats?.onLeaveToday || 0} icon={<i className="fas fa-bed"></i>} color="amber" />
         </div>
 
         <div>
-            <div className="border-b border-gray-200 dark:border-gray-700 mb-6">
+            <div className="border-b border-gray-200 dark:border-slate-700 mb-6">
                 <nav className="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
                 {tabs.map(tab => (
                     <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-                        className={`${activeTab === tab.id ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
-                        whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors`}>
+                        className={`${activeTab === tab.id ? 'border-sky-500 text-sky-600 dark:text-sky-400' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-600'}
+                        whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors focus:outline-none`}
+                    >
                         <i className={`fas ${tab.icon} mr-2`}></i>{tab.label}
                     </button>
                 ))}

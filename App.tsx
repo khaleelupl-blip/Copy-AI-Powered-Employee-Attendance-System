@@ -2,28 +2,27 @@ import React from 'react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { AppProvider } from './contexts/AppContext';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import LoginPage from './components/pages/LoginPage';
 import Dashboard from './components/pages/Dashboard';
 
 const AppContent: React.FC = () => {
   const { user } = useAuth();
 
-  return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 antialiased">
-      {user ? <Dashboard /> : <LoginPage />}
-    </div>
-  );
+  return user ? <Dashboard /> : <LoginPage />;
 };
 
 const App: React.FC = () => {
   return (
-    <LanguageProvider>
-        <AppProvider>
-            <AuthProvider>
-                <AppContent />
-            </AuthProvider>
-        </AppProvider>
-    </LanguageProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+          <AppProvider>
+              <AuthProvider>
+                  <AppContent />
+              </AuthProvider>
+          </AppProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 };
 

@@ -10,6 +10,7 @@ const translations: Record<Language, Record<string, string>> = {
         'password': 'Password',
         'sign_in': 'Sign In',
         'signing_in': 'Signing In...',
+        'login_failed': 'Login failed. Please check your credentials and try again.',
         'quick_login_as': 'Quick Login As:',
         'employee': 'Employee',
         'manager': 'Manager',
@@ -151,7 +152,11 @@ const translations: Record<Language, Record<string, string>> = {
         'leave_requests_by_status': 'Leave Requests by Status',
         'approved': 'Approved',
         'rejected': 'Rejected',
-        'pending': 'Pending'
+        'pending': 'Pending',
+        'theme': 'Theme',
+        'light': 'Light',
+        'dark': 'Dark',
+        'system': 'System'
     },
     es: {
         'app_title': 'Sistema de Asistencia',
@@ -160,6 +165,7 @@ const translations: Record<Language, Record<string, string>> = {
         'password': 'Contraseña',
         'sign_in': 'Iniciar Sesión',
         'signing_in': 'Iniciando Sesión...',
+        'login_failed': 'Inicio de sesión fallido. Por favor, verifique sus credenciales e intente de nuevo.',
         'quick_login_as': 'Inicio Rápido Como:',
         'employee': 'Empleado',
         'manager': 'Gerente',
@@ -301,7 +307,11 @@ const translations: Record<Language, Record<string, string>> = {
         'leave_requests_by_status': 'Solicitudes de Ausencia por Estado',
         'approved': 'Aprobado',
         'rejected': 'Rechazado',
-        'pending': 'Pendiente'
+        'pending': 'Pendiente',
+        'theme': 'Tema',
+        'light': 'Claro',
+        'dark': 'Oscuro',
+        'system': 'Sistema'
     },
     fr: {
         'app_title': 'Système de Présence',
@@ -310,6 +320,7 @@ const translations: Record<Language, Record<string, string>> = {
         'password': 'Mot de passe',
         'sign_in': 'Se Connecter',
         'signing_in': 'Connexion en cours...',
+        'login_failed': 'Échec de la connexion. Veuillez vérifier vos identifiants et réessayer.',
         'quick_login_as': 'Connexion Rapide En Tant Que:',
         'employee': 'Employé',
         'manager': 'Directeur',
@@ -451,7 +462,11 @@ const translations: Record<Language, Record<string, string>> = {
         'leave_requests_by_status': 'Demandes de Congé par Statut',
         'approved': 'Approuvé',
         'rejected': 'Rejeté',
-        'pending': 'En attente'
+        'pending': 'En attente',
+        'theme': 'Thème',
+        'light': 'Clair',
+        'dark': 'Sombre',
+        'system': 'Système'
     },
     zh: {
         'app_title': '考勤系统',
@@ -460,6 +475,7 @@ const translations: Record<Language, Record<string, string>> = {
         'password': '密码',
         'sign_in': '登录',
         'signing_in': '登录中...',
+        'login_failed': '登录失败。请检查您的凭据并重试。',
         'quick_login_as': '快速登录为:',
         'employee': '员工',
         'manager': '经理',
@@ -601,7 +617,11 @@ const translations: Record<Language, Record<string, string>> = {
         'leave_requests_by_status': '按状态统计的请假申请',
         'approved': '已批准',
         'rejected': '已拒绝',
-        'pending': '待处理'
+        'pending': '待处理',
+        'theme': '主题',
+        'light': '浅色',
+        'dark': '深色',
+        'system': '系统'
     },
     ur: {
         'app_title': 'حاضری کا نظام',
@@ -610,6 +630,7 @@ const translations: Record<Language, Record<string, string>> = {
         'password': 'پاس ورڈ',
         'sign_in': 'سائن ان کریں',
         'signing_in': 'سائن ان ہو رہا ہے۔..',
+        'login_failed': 'لاگ ان ناکام ہوگیا۔ براہ کرم اپنی اسناد چیک کریں اور دوبارہ کوشش کریں۔',
         'quick_login_as': 'فوری لاگ ان بطور:',
         'employee': 'ملازم',
         'manager': 'مینیجر',
@@ -751,7 +772,11 @@ const translations: Record<Language, Record<string, string>> = {
         'leave_requests_by_status': 'حیثیت کے لحاظ سے رخصت کی درخواستیں',
         'approved': 'منظور شدہ',
         'rejected': 'مسترد',
-        'pending': 'زیر التواء'
+        'pending': 'زیر التواء',
+        'theme': 'تھیم',
+        'light': 'لائٹ',
+        'dark': 'ڈارک',
+        'system': 'سسٹم'
     },
 };
 

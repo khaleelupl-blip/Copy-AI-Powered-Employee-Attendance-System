@@ -4,16 +4,16 @@ interface StatCardProps {
   title: string;
   value: string | number;
   icon: React.ReactNode;
-  color: 'indigo' | 'green' | 'red' | 'yellow' | 'purple';
+  color: 'sky' | 'teal' | 'rose' | 'amber' | 'violet';
 }
 
 const StatCard: React.FC<StatCardProps> = ({ title, value, icon, color }) => {
     const colorClasses = {
-        indigo: 'from-indigo-500 to-indigo-600',
-        green: 'from-green-500 to-green-600',
-        red: 'from-red-500 to-red-600',
-        yellow: 'from-yellow-500 to-yellow-600',
-        purple: 'from-purple-500 to-purple-600',
+        sky: 'from-sky-500 to-sky-600',
+        teal: 'from-teal-500 to-teal-600',
+        rose: 'from-rose-500 to-rose-600',
+        amber: 'from-amber-500 to-amber-600',
+        violet: 'from-violet-500 to-violet-600',
     };
 
   return (

@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface CardProps {
@@ -10,9 +9,9 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ children, title, actions, className }) => {
   return (
-    <div className={`bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden ${className}`}>
+    <div className={`bg-white dark:bg-slate-800 shadow-sm rounded-xl overflow-hidden border border-gray-200 dark:border-slate-700 ${className}`}>
       {(title || actions) && (
-        <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+        <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-slate-700 flex justify-between items-center">
           {title && <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{title}</h3>}
           {actions && <div>{actions}</div>}
         </div>
